@@ -1,0 +1,83 @@
+import matplotlib.pyplot as plt      	#IMPORT EVERYTHING
+from matplotlib import rc            	#JUST IN CASE
+import numpy as np
+
+# simulate strong acid / strong base titration analysis
+# [acid] = 1 mM; [base] = 2 mM; V(acid) = 20 mL
+# use Excel to calculate pH value as a function of V(base)
+# enter data, where V(base) = 1st entry; pH = 2nd entry
+data=[
+ []
+]
+# estimate derivative by finding slope of adjacent data points
+
+slope = []
+
+for i in range(len(data)):
+  h=data[i-1][0]
+  j=data[i][0]
+  k=data[i-1][1]
+  l=data[i][1]
+  x=(h-j)/(k-l)
+  slope.append(x)
+ 
+# extract x- & y- values from data (array)
+x_value=[]
+for i in range(len(data)):
+  x_value.append(data[i][0])
+ 
+y_value=[]
+for i in range(len(data)):
+  y_value.append(data[i][1])
+
+# generate graph of pH versus V(base)
+
+plt.scatter(x_value,y_value, marker="*")
+
+plt.xlim(0,16)                               	# set x-axis range
+plt.ylim(0,14)                               	# set y-axis range
+
+plt.xlabel("x-axis", fontsize=16)            	# label x-axis title & its font size
+plt.ylabel("y-axis", fontsize=16)            	# label y-axis title
+
+plt.tick_params(labelsize=16)                 	# set axis number font size
+
+plt.plot()
+plt.title('pH vs v(base)',fontsize=16)
+
+plt.show()                                   	# show plot
+
+# generate graph of V(base) versus d pH / dV
+
+plt.scatter(x_value,slope, marker="*")
+
+plt.xlim(0,16)                               	# set x-axis range
+plt.ylim(-2,14)                               	# set y-axis range
+
+plt.xlabel("x-axis", fontsize=16)            	# label x-axis title & its font size
+plt.ylabel("y-axis", fontsize=16)            	# label y-axis title
+
+plt.tick_params(labelsize=16)                 	# set axis number font size
+
+plt.plot()
+plt.title('V(base) vs d pH / d V(base)',fontsize=16)
+
+plt.show()                                   	# show plot
+
+# print data table: V(base) & d pH / dV
+
+data=[
+	['V(base)','d pH/ dV'],
+  []
+]
+
+
+dash = '-' * 20
+
+for i in range(len(data)):
+	if i == 0:
+  	print(dash)
+  	print('{:<10s}{:>4s}'.format(data[i][0],data[i][1]))        	# print data table column names
+  	print(dash)
+	else:
+  	print('{:<10.2f}{:>4.1f}'.format(data[i][0],data[i][1]))    	# print data
